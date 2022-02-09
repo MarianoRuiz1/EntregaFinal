@@ -1,0 +1,44 @@
+{% extends "AppSinLuz/index.html" %}
+{% load static %}
+{% block tituloQueCambia %}
+Reclamos
+{% endblock %}
+{% block contenidoQueCambia %}
+	<header id="head" class="secondary"></header>
+
+	<!-- container -->
+	<div class="container">
+
+		<div class="row">
+			
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h1 class="page-title">Reclamos</h1>
+				</header>
+				
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3 class="thin text-center">Ingrese la fecha que desea consultar</h3>
+							<p class="text-center text-muted">Se le mostraran todos los reclamos realizados en esa fecha.</p>
+							<hr>
+							
+							<form action="/SinLuz/buscar/" method="GET">
+									<div class="top-margin">
+										<label for="fecha">Fecha </label>
+										<input id="fecha" type="date" name="fecha" class="form-control">
+									</div>
+									<hr>
+									<div class="col-lg-12 text-right">
+										<button class="btn btn-action" type="submit">Continuar</button>					
+									</div>
+								</form>
+						</div>
+					</div>
+
+				</div>
+				
+			</article>
+			<!-- /Article -->
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "AppSinLuz/index.html" %}
+{% load static %}
+{% block tituloQueCambia %}
+Administrativos
+{% endblock %}
+{% block contenidoQueCambia %}
+	<header id="head" class="secondary"></header>
+
+	<!-- container -->
+	<div class="container">
+
+		<div class="row">
+			
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h1 class="page-title">Administrativos</h1>
+				</header>
+				
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+
+							<form action="" method="POST">
+								<hr>
+								<div class="top-margin">
+									<label><li><u>Usuario</u>: {{usuario.username}}</li></label>
+								</div>
+								<hr>
+								<div class="top-margin">
+									<label><li><u>Email</u>: {{usuario.email}}</li></label>
+								</div>
+								<hr>
+								<div class="top-margin">
+									<label><li><u>Direción</u>: {{usuario.direccion}}</li></label>
+								</div>
+								<hr>
+								<div class="top-margin">
+									<label><li><u>Piso/Dpto</u>: {{usuario.departamento}}</li></label>
+								</div>
+								<hr>
+							</form>
+						</div>
+					</div>
+
+				</div>
+				
+			</article>
+			<!-- /Article -->
+{% endblock %}

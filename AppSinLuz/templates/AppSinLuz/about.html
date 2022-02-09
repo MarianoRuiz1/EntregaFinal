@@ -1,0 +1,56 @@
+{% extends "AppSinLuz/index.html" %}
+{% load static %}
+{% block tituloQueCambia %}
+Inicio
+{% endblock %}
+{% block contenidoQueCambia %}
+
+<header id="head" class="secondary"></header>
+
+<!-- container -->
+<div class="container">
+
+    <ol class="breadcrumb">
+    </ol>
+
+    <div class="row">
+
+<hr>
+
+<article class="col-sm-8 maincontent">
+    <header class="page-header">
+        <h1 class="page-title">Sobre Nosotros</h1>
+    </header>
+
+	<div class="row item">
+		<div class="col-sm-3 profile">
+		<img src="{% static 'AppSinLuz/images/mariano.jpg' %}" class="sobreNosotros">
+		</div>
+		<blockquote>
+		<i class="fa fa-quote-left"></i>
+		<p>Nací en La Banda, Santiago del Estero, tengo 22 años y soy estudiante de Licenciatura en Química en la Universidad Nacional de Santiago del Estero. Este es mi primer acercamiento al mundo de la programación y elegí Python debido a la legibilidad de su código.</p>
+		</blockquote>
+		<p class="source"><h4><b>Mariano Ruiz</b></h4>
+		</p>
+		</div>
+        <hr>
+        <div class="col-sm-3 profile">
+        <img src="{% static 'AppSinLuz/images/martin.jpg' %}" class="sobreNosotros">
+        </div>
+        <blockquote>
+        <i class="fa fa-quote-left"></i>
+        <p>Tengo 33 años y soy de CABA. Soy dueño de una empresa especializada en Recursos Humanos y mi objetivo al ingresar a este curso era adentrarme en el mundo de la programación y en todas las probabilidades que este nos ofrece.</p>
+        </blockquote>
+        <p class="source"><h4><b>Martin Garro</b></h4>
+        </p>
+        </div>
+
+<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="assets/js/headroom.min.js"></script>
+<script src="assets/js/jQuery.headroom.min.js"></script>
+<script src="assets/js/template.js"></script>
+</body>
+</html>
+{% endblock %}

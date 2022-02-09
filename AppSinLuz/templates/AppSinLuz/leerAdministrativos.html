@@ -1,0 +1,45 @@
+{% extends "AppSinLuz/index.html" %}
+{% load static %}
+{% block tituloQueCambia %}
+Administrativos
+{% endblock %}
+{% block contenidoQueCambia %}
+	<header id="head" class="secondary"></header>
+
+	<!-- container -->
+	<div class="container">
+
+		<div class="row">
+			
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h1 class="page-title">Administrativos</h1>
+				</header>
+				
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3 class="thin text-center">Administrativos</h3>
+							<hr>
+							
+						<body>
+                            
+                            {% for a in administrativos %}
+
+                                <li>{{a}}</li>
+                                <button>
+                                    <a href= {% url 'editarAdministrativo' a.id %}> Editar</a>
+                                </button>
+
+                            {% endfor %}
+                            <li class="active"><a href="{% url 'administrativos' %}"><h4> Agregar un administrativo </h4></a></li>
+                        </body>
+						</div>
+					</div>
+
+				</div>
+				
+			</article>
+			<!-- /Article -->
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends "AppSinLuz/index.html" %}
+{% load static %}
+{% block tituloQueCambia %}
+Inicio
+{% endblock %}
+{% block contenidoQueCambia %}
+<!-- Header -->
+	<header id="head">
+		<div class="container">
+			<div class="row">
+				<h1 class="lead">SIN LUZ</h1>
+				<p class="tagline"> <h2> Inicie su reclamo por falta de luz</h2> </p>
+				<p><a class="btn btn-action btn-lg"  href="{% url 'reclamos' %}">RECLAMOS</a>  <a class="btn btn-action btn-lg" href="{% url 'register' %}">CREE SU USUARIO</a></p>
+			</div>
+		</div>
+	</header>
+	<!-- /Header -->
+		
+	<!-- Highlights - jumbotron -->
+	<div class="jumbotron top-space">
+		<div class="container">
+			
+			<h3 class="text-center thin">Que mejor que estar sin luz, para poder reclamar.</h3>
+			
+			<div class="row">
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-cogs fa-5"></i>Mejorando el Servicio</h4></div>
+					<div class="h-body text-center">
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-flash fa-5"></i>Energia al Instante</h4></div>
+					<div class="h-body text-center">
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-heart fa-5"></i>No se Amargue</h4></div>
+					<div class="h-body text-center">
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6 highlight">
+					<div class="h-caption"><h4><i class="fa fa-smile-o fa-5"></i>Soporte Humano</h4></div>
+					<div class="h-body text-center">
+					</div>
+				</div>
+			</div> <!-- /row  -->
+		
+		</div>
+	</div>
+	<!-- /Highlights -->
+
+	<hr>
+	<section class="section section-testimonials jumbotron">
+		<div class="container">
+		<h2 class="title text-center topspace">Opiniones de nuestros usuarios</h2>
+		<div id="testimonials-carousel" class="carousel slide" data-ride="carousel">
+		<ol class="carousel-indicators">
+		<li data-target="#testimonials-carousel" data-slide-to="0" class=""></li>
+		<li data-target="#testimonials-carousel" data-slide-to="1" class=""></li>
+		<li data-target="#testimonials-carousel" data-slide-to="2" class="active"></li>
+		</ol>
+		
+		<div class="carousel-inner">
+		<div class="row item">
+		<div class="col-sm-3 profile">
+		<img src="{% static 'AppSinLuz/images/marty-mcfly-1.jpg' %}" class="RedondaComments">
+		</div>
+		<div class="col-sm-4 content">
+		<blockquote>
+		<i class="fa fa-quote-left"></i>
+		<p>Ojala pudiese volver el tiempo atras, para poder reclamar antes...</p>
+		</blockquote>
+		<p class="source">Marty McFly
+		<br><span class="title">Hill Valley, Neuquen</span>
+		</p>
+		</div>
+		
+		</div>
+		
+		<div class="row item">
+		<div class="col-sm-3 profile">
+		<img src="{% static 'AppSinLuz/images/juan_garcia.jpg' %}" class="RedondaComments">
+		</div>
+		<div class="col-sm-3 content">
+		<blockquote>
+		<i class="fa fa-quote-left"></i>
+		<p>Estoy tan contento con esta app, que ya se me hizo un pasatiempo!</p>
+		</blockquote>
+		<p class="source">Juan Garcia
+		<br><span class="title">Glew, Buenos Aires</span>
+		</p>
+		</div>
+		
+		</div>
+		
+		<div class="row item active">
+		<div class="col-sm-3 profile">
+		<img src="{% static 'AppSinLuz/images/goku.jpg' %}" class="RedondaComments">
+		</div>
+		<div class="col-sm-3 content">
+		<blockquote>
+		<i class="fa fa-quote-left"></i>
+		<p>Por mi casa nunca hay luz, por suerte ahora puedo reclamar</p>
+		</blockquote>
+		<p class="source">Son Goku
+		<br><span class="title">La Banda, Santiago del Estero</span>
+		</p>
+		</div>
+		
+		</div>
+		
+		</div>
+		
+		</div>
+		
+		</div>
+		</section>
+
+{% endblock %}

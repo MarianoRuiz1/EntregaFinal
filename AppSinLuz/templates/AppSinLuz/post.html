@@ -1,0 +1,47 @@
+{% extends "AppSinLuz/index.html" %}
+{% load static %}
+{% block tituloQueCambia %}
+Blog
+{% endblock %}
+{% block contenidoQueCambia %}
+	<header id="head" class="secondary"></header>
+
+	<!-- container -->
+	<div class="container">
+
+		<div class="row">
+			
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h1 class="page-title">Posteos</h1>
+				</header>
+				{% if posts %}
+				{% for post in posts %}
+
+				<div class="Card">
+					<div href="#blog-post">
+					  <img src="{{ post.imagen_url }}" alt="Computer" class="Card__Image" />
+					</div>
+					<div class="Card__Content">
+					  <div class="Content__Title">
+						<div class="Title__Text">{{ post.titulo }}</div>
+					  </div>
+					  <div class="Content__Description">
+						<label>{{ post.contenido | safe }}</label>
+					</div>
+					  <div class="Content__Footer">
+						<a href="#author" class="Footer__Image"></a>
+						<div class="Footer__Meta">
+						  <a href="#author" class="Meta__Author">Por  {{ post.autor }}</a>
+						  <div class="Meta__Date">{{ post.fecha_creacion }}</div>
+						</div>
+					  </div>
+					</div>
+				  </div>
+				{% endfor %}
+				{% else %}
+				<h1>No existen post registrados!</h1>
+				{% endif %}
+{% endblock %}
+

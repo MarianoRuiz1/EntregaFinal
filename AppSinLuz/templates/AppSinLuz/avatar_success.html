@@ -1,0 +1,38 @@
+{% extends "AppSinLuz/index.html" %}
+{% load static %}
+{% block tituloQueCambia %}
+Login
+{% endblock %}
+{% block contenidoQueCambia %}
+	<header id="head" class="secondary"></header>
+
+	<!-- container -->
+	<div class="container">
+
+		<div class="row">
+			
+			<!-- Article main content -->
+			<article class="col-xs-12 maincontent">
+				<header class="page-header">
+					<h1 class="page-title">Felicitaciones!</h1>
+				</header>
+				
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+					<div class="panel panel-default">
+						<div class="panel-body">
+							<h3 class="thin text-center">Su imagen ha sido cambiado con exito.</h3>
+							<hr>
+                            <div class="row">
+								<div class="col-lg-7"></div>
+								<div class="col-lg-4 text-right">
+									<a class="btn btn-action btn-md" href="{% url 'inicio' %}">Volver al inicio</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				
+			</article>
+			<!-- /Article -->
+{% endblock %}
