@@ -25,4 +25,7 @@ urlpatterns = [
     path('busquedaReclamo', views.busqueda_reclamo, name='busquedaReclamo'),
     path('buscar/', views.buscar, name='busqueda'),
     path('reclamos', views.reclamos, name='reclamos'),
+    path('editarReclamo/<pk>/', views.ReclamoUpdateView.as_view(), name='editarReclamo'),
+    path('reclamos/delete/<id_reclamo>', views.eliminarReclamo, name='eliminarReclamo'),
+    path('leerReclamos/<id_reclamo>', views.mostrarReclamos, name='leerReclamos'),
 ]

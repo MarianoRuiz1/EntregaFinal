@@ -59,8 +59,13 @@ class Post(models.Model):
         
 
 class Reclamo(models.Model):
+    usuario = models.CharField(max_length=100)
+    avatar = ImageField()
+    identificacion = models.IntegerField()
+    problema = models.CharField(max_length=30)
     fecha = models.DateField()
-    detalles = models.CharField(max_length=100)
+    resumen = models.CharField(max_length=50)
+    detalles = models.CharField(max_length=200)
     
     def __str__(self):
-        return f"Usuario: {self.username} - Email: {self.email}"
+        return f"Usuario: {self.usuario} - Avatar: {self.avatar} - Problema: {self.problema} - Fecha: {self.fecha} - Resumen: {self.resumen} - Detalles: {self.detalles}"

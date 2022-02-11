@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from AppSinLuz.forms import AdministrativoForm, AvatarForm, UserRegisterForm, UserLoginForm
+from AppSinLuz.forms import AdministrativoForm, AvatarForm, UserRegisterForm, UserLoginForm, ReclamoForm
 from AppSinLuz.models import Administrativo, Avatar, Usuario, Post, Reclamo
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.views.generic.detail import DetailView
@@ -9,6 +9,9 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.template import loader
+from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 def inicio(request):
     avatares = Avatar.objects.filter(user=request.user.id)
@@ -102,7 +105,7 @@ class UserDetalle(AvatarView, DetailView):
     model = User
     template_name = "AppSinLuz/leerUsuarios.html"
 
-class UsuarioListView(ListView):
+class UsuarioListView(ListView, LoginRequiredMixin):
     
     model = Usuario
     template_name = "AppSinLuz/leerUsuarios.html"
@@ -188,15 +191,19 @@ def login_request(request):
             
             if user is not None:
                 login(request, user)
-                
-                return render(request, "AppSinLuz/inicio.html", {"mensaje":f"Bienvenido {usuario}"})
+                avatares = Avatar.objects.filter(user=request.user.id)
+                if avatares:
+                    avatar_url = avatares.last().imagen.url
+                else:
+                    avatar_url = ''
+                return render(request, 'AppSinLuz/inicio.html', {'avatar_url':avatar_url})
             else:
                 
-                return render(request, "AppSinLuz/inicio.html", {"mensaje":f"Error, datos incorrectos."})
+                return render(request, "AppSinLuz/login.html", {"form":form, "error":"Datos incorrectos"})
             
         else:
             
-                return render(request, "AppSinLuz/inicio.html", {"mensaje":f"Error, datos incorrectos."})
+            return render(request, "AppSinLuz/login.html", {"form":form})
             
     form = UserLoginForm()
     
@@ -204,21 +211,38 @@ def login_request(request):
 
 def register(request):
     
-    if request.method == "POST":
+    avatares = Avatar.objects.filter(user=request.user.id)
+    if avatares:
+        avatar_url = avatares.last().imagen.url
+        if request.method == "POST":
+            
+            form = UserRegisterForm(request.POST)
         
-        form = UserRegisterForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                last_name = form.cleaned_data['last_name']
+                first_name = form.cleaned_data['first_name']
+                form.save()
+                return render(request, "AppSinLuz/inicio.html", {"mensaje":"Usuario creado", 'form':form,'avatar_url':avatar_url})
         
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            last_name = form.cleaned_data['last_name']
-            first_name = form.cleaned_data['first_name']
-            form.save()
-            return render(request, "AppSinLuz/inicio.html", {"mensaje":"Usuario creado"})
-        
+        else:
+            form = UserRegisterForm()
     else:
-        form = UserRegisterForm()
-        
-    return render(request, "AppSinLuz/register.html", {"form":form})
+        avatar_url = ''
+        if request.method == "POST":
+                
+            form = UserRegisterForm(request.POST)
+            
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                last_name = form.cleaned_data['last_name']
+                first_name = form.cleaned_data['first_name']
+                form.save()
+                return render(request, "AppSinLuz/inicio.html", {"mensaje":"Usuario creado", 'form':form,'avatar_url':avatar_url})
+            
+        else:
+            form = UserRegisterForm()
+    return render(request, 'AppSinLuz/register.html', {'form':form,'avatar_url':avatar_url})
 
 def agregar_avatar_mostrar(request):
     avatares = Avatar.objects.filter(user=request.user.id)
@@ -250,6 +274,7 @@ def agregar_avatar(request):
 
     
 def avatar_success(request):
+    form = AvatarForm() 
     avatares = Avatar.objects.filter(user=request.user.id)
     if avatares:
         avatar_url = avatares.last().imagen.url
@@ -258,15 +283,28 @@ def avatar_success(request):
     return render(request, 'AppSinLuz/avatar_success.html', {'avatar_url':avatar_url})
     
 def buscar(request):
-    
-    if request.method == "GET":
-        fecha = request.GET['fecha']
-        reclamos = Reclamo.objects.filter(fecha=fecha)
-        return render(request, 'AppSinLuz/buscar.html', {'reclamos':reclamos, 'fecha':fecha})
+    form = AvatarForm() 
+    avatares = Avatar.objects.filter(user=request.user.id)
+    if avatares:
+        avatar_url = avatares.last().imagen.url
+        if request.method == "GET":
+            fecha = request.GET['fecha']
+            if fecha != '':
+                reclamos = Reclamo.objects.filter(fecha=fecha)
+                return render(request, 'AppSinLuz/buscar.html', {'form':form, 'avatar_url':avatar_url, 'reclamos':reclamos, 'fecha':fecha})
+            else:
+                respuesta = "No ingreso una fecha."
+                return render(request, 'AppSinLuz/error_busqueda.html')
     else:
-        
-        respuesta = "No ingreso una fecha."
-    return HttpResponse(respuesta)
+        avatar_url = ''
+        if request.method == "GET":
+            fecha = request.GET['fecha']
+            if fecha != None:
+                reclamos = Reclamo.objects.filter(fecha=fecha)
+                return render(request, 'AppSinLuz/buscar.html', {'form':form, 'avatar_url':avatar_url, 'reclamos':reclamos, 'fecha':fecha})
+            else:
+                respuesta = "No ingreso una fecha."
+                return render(request, 'AppSinLuz/error_busqueda.html')
 
 def busqueda_reclamo(request):
     form = AvatarForm() 
@@ -281,19 +319,66 @@ def reclamos(request):
     
     return render(request, 'AppSinLuz/reclamos.html')
 
+
 def reclamos(request):
-    
-    if request.method == "POST":
-       fecha = request.POST['fecha']
-       detalles = request.POST['detalles']
-       print(request.POST)
-       Reclamo.objects.create(fecha=fecha, detalles=detalles)
-       return render(request, 'AppSinLuz/inicio.html')
     
     form = AvatarForm() 
     avatares = Avatar.objects.filter(user=request.user.id)
     if avatares:
         avatar_url = avatares.last().imagen.url
+        if request.method == "POST":
+            problema = request.POST['problema']
+            fecha = request.POST['fecha']
+            resumen = request.POST['resumen']
+            detalles = request.POST['detalles']
+            print(request.POST)
+            Reclamo.objects.create(usuario=request.user.username,avatar=avatar_url, identificacion=request.user.id, problema=problema, fecha=fecha, resumen=resumen, detalles=detalles)
+            return render(request, 'AppSinLuz/inicio.html')
     else:
         avatar_url = ''
+        if request.method == "POST":
+            problema = request.POST['problema']
+            fecha = request.POST['fecha']
+            resumen = request.POST['resumen']
+            detalles = request.POST['detalles']
+            print(request.POST)
+            Reclamo.objects.create(usuario=request.user.username,avatar=avatar_url, identificacion=request.user.id, problema=problema, fecha=fecha, resumen=resumen, detalles=detalles)
+            return render(request, 'AppSinLuz/inicio.html')
+        
     return render(request, 'AppSinLuz/reclamos.html', {'form':form, 'avatar_url':avatar_url})
+
+def eliminarReclamo(request, id_reclamo):
+    
+    reclamo = Reclamo.objects.get(id=id_reclamo)
+    reclamo.delete()
+    
+    return redirect('busquedaReclamo')
+
+class ReclamoUpdateView(UpdateView):
+    
+    model = Reclamo
+    success_url = reverse_lazy('inicio')
+    fields = ['problema', 'fecha', 'resumen', 'detalles']
+    template_name = "AppSinLuz/editarReclamo.html"
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            avatares = Avatar.objects.filter(user=self.request.user)
+            if avatares:
+                contexto['avatar_url'] = avatares.last().imagen.url
+        return contexto
+   
+
+def mostrarReclamos(request, id_reclamo):
+    form = AvatarForm() 
+    avatares = Avatar.objects.filter(user=request.user.id)
+    if avatares:
+        avatar_url = avatares.last().imagen.url
+        reclamo = Reclamo.objects.filter(id=id_reclamo)
+    else:
+        avatar_url = ''
+        reclamo = Reclamo.objects.filter(id=id_reclamo)
+    
+    return render(request, 'AppSinLuz/leerReclamos.html', {'form':form, 'avatar_url':avatar_url, "reclamo":reclamo})
+

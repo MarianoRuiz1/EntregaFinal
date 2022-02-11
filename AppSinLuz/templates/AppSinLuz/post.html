@@ -31,7 +31,7 @@ Blog
 						<label>{{ post.contenido | safe }}</label>
 					</div>
 					  <div class="Content__Footer">
-						<a href="#author" class="Footer__Image"></a>
+						<img src="{{ post.imagen_user_url }}" class="RedondaPost"></a>
 						<div class="Footer__Meta">
 						  <a href="#author" class="Meta__Author">Por  {{ post.autor }}</a>
 						  <div class="Meta__Date">{{ post.fecha_creacion }}</div>

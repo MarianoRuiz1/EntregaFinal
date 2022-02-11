@@ -1,7 +1,7 @@
 {% extends "AppSinLuz/index.html" %}
 {% load static %}
 {% block tituloQueCambia %}
-Reclamos
+Usuarios
 {% endblock %}
 {% block contenidoQueCambia %}
 	<header id="head" class="secondary"></header>
@@ -14,32 +14,49 @@ Reclamos
 			<!-- Article main content -->
 			<article class="col-xs-12 maincontent">
 				<header class="page-header">
-					<h1 class="page-title">Reclamos</h1>
+					<h1 class="page-title">Reclamo </h1>
 				</header>
-				
+				{% for r in reclamo %}	
 				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<h3 class="thin text-center">Reclamos</h3>
-							<hr>
-							
+							<div class="row">
+								<img src={{r.avatar}} class="RedondaUser"/>
+								&nbsp;
+							</div>
+							<h2 class="thin text-center">{{r.usuario}}</h2>
 						<body>
-                            
-                            {% for r in reclamos %}
-
-                                <li>{{r}}</li>
-                                <button>
-                                    <a href= {% url 'eliminarReclamo' r.id %}> Eliminar</a>
-                                </button>
-
-                            {% endfor %}
-                            <li class="active"><a href="{% url 'reclamo' %}"><h4> Agregar un reclamo </h4></a></li>
+							<form action="" method="POST" enctype="multipart/form-data">
+								<hr>
+								<div class="top-margin">
+									<h4><label>Problema: {{r.problema}}</label></h4>
+								</div>
+								<hr>
+								<div class="top-margin">
+									<h4><label>Fecha: {{r.fecha}}</label></h4>
+								</div>
+								<hr>
+								<div class="top-margin">
+									<h4><label>Resumen: {{r.resumen}}</label></h4>
+								</div>
+								<hr>
+								<div class="top-margin">
+									<h4><label>Detalles: {{r.detalles}}</label></h4>
+								</div>
+								<hr>
+								
+							</form>
+							<div class="row">
+								<div class="col-lg-8"></div>
+								<div class="col-lg-12 text-center">
+									<a class="btn btn-action btn-md" href= {% url 'inicio'%}> Volver al inicio</a>
+								</div>
+							</div>
                         </body>
 						</div>
 					</div>
-
 				</div>
-				
+				{% endfor %}
 			</article>
 			<!-- /Article -->
 {% endblock %}

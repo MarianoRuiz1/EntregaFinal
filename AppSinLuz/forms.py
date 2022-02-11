@@ -27,8 +27,8 @@ class UserRegisterForm(UserCreationForm):
     password1 = CharField(label='Contraseña', widget = PasswordInput, help_text = False)
     password2 = CharField(label='Confirmar contraseña', widget = PasswordInput, help_text = False)
     email = EmailField(label='Email', help_text = False)
-    last_name = CharField(label='Direccion', help_text = False)
-    first_name = CharField(label='Piso/Dpto', help_text = False)
+    last_name = CharField(label='Apellido', help_text = False)
+    first_name = CharField(label='Nombre', help_text = False)
     
     class Meta:
         model = User
@@ -49,3 +49,9 @@ class UserLoginForm(AuthenticationForm):
 class AvatarForm(Form):
     imagen = ImageField(required=True)
 
+class ReclamoForm(forms.Form):
+    
+    problema = forms.CharField(max_length=30)
+    fecha = forms.DateField()
+    resumen = forms.CharField(max_length=50)
+    detalles = forms.CharField(max_length=200)

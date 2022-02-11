@@ -31,16 +31,29 @@ Reclamo
 							<form action="" method="POST">
 							{% csrf_token %}
 							<div class="top-margin">
+								<label for="problema">Problema: </label>
+								<input id="problema" type="text" name="problema" class="form-control">
+							</div>	
+							<div class="top-margin">
 								<label for="fecha">Fecha: </label>
 								<input id="fecha" type="date" name="fecha" class="form-control">
 							</div>
 							<div class="top-margin">
-								<label for="detalles">Detalles: </label>
+								<label for="resumen">Cuéntenos resumidamente que sucedió: </label>
+								<input id="resumen" type="text" name="resumen" class="form-control">
+							</div>	
+							<div class="top-margin">
+								<label for="detalles">¿Desea añadir algún detalle?: </label>
 								<input id="detalles" type="text" name="detalles" class="form-control">
-							</div>			
-							<div class="col-lg-10 text-right">
-								<button class="btn btn-action" type="submit">Continuar</button>					
-							</div>
+							</div>	
+							
+							<hr>
+							
+							<div class="row">
+								<div class="col-lg-8"></div>
+								<div class="col-lg-4 text-right">
+									<button class="btn btn-action" type="submit">Continuar</button>
+								</div>
 							</form>
 						</div>
 					</div>
