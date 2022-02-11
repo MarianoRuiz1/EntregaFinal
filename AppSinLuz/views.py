@@ -333,7 +333,7 @@ def reclamos(request):
             detalles = request.POST['detalles']
             print(request.POST)
             Reclamo.objects.create(usuario=request.user.username,avatar=avatar_url, identificacion=request.user.id, problema=problema, fecha=fecha, resumen=resumen, detalles=detalles)
-            return render(request, 'AppSinLuz/inicio.html')
+            return render(request, 'AppSinLuz/inicio.html', {'avatar_url':avatar_url})
     else:
         avatar_url = ''
         if request.method == "POST":
@@ -343,7 +343,7 @@ def reclamos(request):
             detalles = request.POST['detalles']
             print(request.POST)
             Reclamo.objects.create(usuario=request.user.username,avatar=avatar_url, identificacion=request.user.id, problema=problema, fecha=fecha, resumen=resumen, detalles=detalles)
-            return render(request, 'AppSinLuz/inicio.html')
+            return render(request, 'AppSinLuz/inicio.html', {'avatar_url':avatar_url})
         
     return render(request, 'AppSinLuz/reclamos.html', {'form':form, 'avatar_url':avatar_url})
 
